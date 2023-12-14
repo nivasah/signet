@@ -19,7 +19,9 @@ publish:
 	docker push $(DOCKER_REPOSITORY_OWNER)/$(BINARY_NAME):$(VERSION)
 setup:
 	$(GOGET) -v ./...
-build:
+build-ui:
+	cd ui && npm i && npm run build
+build: build-ui
 ifeq ($(OS),Windows_NT)
 	$(GOBUILD) -o ./$(BINARY_LOC)/$(BINARY_NAME).exe -v ./cmd/$(BINARY_NAME)/...
 else

@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/nivasah/signet/internal/server"
+)
 
 func main() {
-	fmt.Println("Welcome Signet")
+	cfg := server.Config{
+		Port: "8080",
+	}
+	log.Fatal(server.Run(&cfg))
 }
