@@ -7,6 +7,7 @@ BINARY_LOC=bin
 BINARY_NAME=signet
 DOCKER_REPOSITORY_OWNER=alwindoss
 VERSION=0.0.1
+MIG_VERSION?=1
 
 all: build
 protoc:
@@ -38,3 +39,9 @@ ifeq ($(OS),Windows_NT)
 else
 	./$(BINARY_LOC)/$(BINARY_NAME)
 endif 
+migrate-up:
+	migrate -path database/migration/ -database "postgresql://signet_user:signet_password@localhost:5432/signet_db?sslmode=disable" -verbose up
+migrate-down:
+	migrate -path database/migration/ -database "postgresql://signet_user:signet_password@localhost:5432/signet_db?sslmode=disable" -verbose down
+migrate-fix:
+	migrate -path database/migration/ -database "postgresql://signet_user:signet_password@localhost:5432/signet_db?sslmode=disable" force $(MIG_VERSION)
