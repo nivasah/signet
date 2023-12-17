@@ -1,0 +1,6 @@
+BEGIN;
+
+ALTER TABLE resources
+   ADD COLUMN tags VARCHAR(200);
+
+COMMIT;
